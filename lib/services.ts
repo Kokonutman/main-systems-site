@@ -21,7 +21,7 @@ export const services: ServiceConfig[] = [
     name: "Dining",
     description: "Daily menu digest + UMD dining endpoints.",
     url: "https://dining.arjun.systems",
-    healthUrl: "https://dining.arjun.systems/api/health",
+    healthUrl: "https://dining.arjun.systems/api/dining/health",
     tags: ["tool", "digest"],
   },
 ];

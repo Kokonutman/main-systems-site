@@ -42,7 +42,7 @@ async function checkOne(service: (typeof services)[number], checkedAt: string): 
       return makeOffline(service, checkedAt, "Invalid health payload");
     }
 
-    const state = getStateFromHealth(payloadUnknown, Date.now());
+    const state = getStateFromHealth(payloadUnknown);
     return {
       id: service.id,
       name: service.name,

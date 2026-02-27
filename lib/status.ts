@@ -19,19 +19,14 @@ export type StatusEntry = {
   error?: string;
 };
 
-const STALE_MS = 5 * 60 * 1000;
-
 export function isHealthPayload(value: unknown): value is HealthPayload {
   if (!value || typeof value !== "object") return false;
   const record = value as Record<string, unknown>;
   return typeof record.status === "string" && typeof record.service === "string" && typeof record.timestamp === "string";
 }
 
-export function getStateFromHealth(health: HealthPayload, nowMs: number): Exclude<ServiceState, "checking"> {
+export function getStateFromHealth(health: HealthPayload): Exclude<ServiceState, "checking"> {
   if (health.status !== "ok") return "degraded";
-  const ts = Date.parse(health.timestamp);
-  if (!Number.isFinite(ts)) return "degraded";
-  if (nowMs - ts > STALE_MS) return "degraded";
   return "online";
 }
 
