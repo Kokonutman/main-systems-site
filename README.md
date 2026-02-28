@@ -22,7 +22,10 @@ npm run lint
 
 ## Environment variables
 
-None required.
+- `ADMIN_PANEL_PASSWORD` required to use `/admin`
+- `ADMIN_PANEL_SESSION_SECRET` optional session-signing override
+- `SUPABASE_URL` required for the Dining subscriber table in the admin panel
+- `SUPABASE_SERVICE_ROLE_KEY` required for the Dining subscriber table in the admin panel
 
 ## Add a new service
 
@@ -63,6 +66,24 @@ No UI changes are needed. The homepage tools grid and status table are data-driv
   - optional `error`
 - In-memory cache TTL is `15s`.
 - Use `/api/status?force=true` to bypass cache.
+
+## Admin panel
+
+- Password prompt route: `/admin`
+- Dashboard route: `/admin/panel`
+- Protected by a password-based session cookie that resets when the browser session ends
+- Admin API routes:
+  - `/api/admin/overview` (protected)
+  - `/api/admin/login` (public login handler)
+  - `/api/admin/logout` (protected)
+
+The admin panel currently aggregates:
+- live health for each project
+- endpoint inventory
+- auth requirements
+- cron/run behavior
+- operational environment dependencies
+- Dining mailing-list subscribers from `public.dining_subscribers` when Supabase env is configured
 
 ## Deployment (Vercel)
 
